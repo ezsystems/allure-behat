@@ -114,7 +114,8 @@ class AllureFormatterExtension implements ExtensionInterface
 
   private function loadScreenshotExtention(ContainerBuilder $container)
   {
-      $container->register(ScreenshotTaker::class)
+      $container
+        ->register(ScreenshotTaker::class)
         ->setDecoratedService(self::SCREENSHOT_TAKER_SERVICE_ID, self::SCREENSHOT_TAKER_SERVICE_ID . '.inner')
         ->addArgument(new Reference(self::SCREENSHOT_TAKER_SERVICE_ID . '.inner'));
   }

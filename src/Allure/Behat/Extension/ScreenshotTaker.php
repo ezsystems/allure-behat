@@ -8,10 +8,7 @@ declare(strict_types=1);
 
 namespace Allure\Behat\Extension;
 
-use Behat\Mink\Mink;
 use Bex\Behat\ScreenshotExtension\Service\ScreenshotTaker as BaseScreenshotTaker;
-use Bex\Behat\ScreenshotExtension\ServiceContainer\Config;
-use Symfony\Component\Console\Output\OutputInterface;
 use Yandex\Allure\Adapter\Allure;
 use Yandex\Allure\Adapter\Event\AddAttachmentEvent;
 
@@ -27,6 +24,7 @@ class ScreenshotTaker extends BaseScreenshotTaker
   public function takeScreenshot(): void
     {
         $this->baseScreenshotTaker->takeScreenshot();
-        Allure::lifecycle()->fire(new AddAttachmentEvent($this->baseScreenshotTaker->getImage(), 'Browser screenshot'));
+        $image = $this->baseScreenshotTaker->getImage();
+        Allure::lifecycle()->fire(new AddAttachmentEvent($image, 'Browser screenshot'));
     }
 }
