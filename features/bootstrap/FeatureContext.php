@@ -37,6 +37,14 @@ class FeatureContext implements Context
    * @var string
    */
   private $options = '--format-settings=\'{"timer": false}\' --no-interaction';
+  /**
+   * @var array
+   */
+  private $env;
+  /**
+   * @var string
+   */
+  private $input;
 
   /**
    * Cleans test folders in the temporary directory.
@@ -70,8 +78,6 @@ class FeatureContext implements Context
     }
     $this->workingDir = $dir;
     $this->phpBin = $php;
-    $this->process = new Process(null);
-    $this->process->setTimeout(20);
   }
 
   /**
@@ -169,7 +175,7 @@ EOL;
    */
   public function iSetEnvironmentVariable(PyStringNode $value)
   {
-    $this->process->setEnv(array('BEHAT_PARAMS' => (string) $value));
+    $this->env = array('BEHAT_PARAMS' => (string) $value);
   }
 
   /**
@@ -183,23 +189,24 @@ EOL;
   {
     $argumentsString = strtr($argumentsString, array('\'' => '"'));
 
-    $this->process->setWorkingDirectory($this->workingDir);
-    $this->process->setCommandLine(
+    // Don't reset the LANG variable on HHVM, because it breaks HHVM itself
+    if (!defined('HHVM_VERSION')) {
+      $this->env['LANG'] = 'en'; // Ensures that the default language is en, whatever the OS locale is.
+    }
+
+    $this->process = Process::fromShellCommandline(
       sprintf(
         '%s %s %s %s',
         $this->phpBin,
         escapeshellarg(BEHAT_BIN_PATH),
         $argumentsString,
         strtr($this->options, array('\'' => '"', '"' => '\"'))
-      )
+      ),
+      $this->workingDir,
+      $this->env,
+      $this->input,
+      20
     );
-
-    // Don't reset the LANG variable on HHVM, because it breaks HHVM itself
-    if (!defined('HHVM_VERSION')) {
-      $env = $this->process->getEnv();
-      $env['LANG'] = 'en'; // Ensures that the default language is en, whatever the OS locale is.
-      $this->process->setEnv($env);
-    }
 
     $this->process->run();
   }
@@ -214,11 +221,9 @@ EOL;
    */
   public function iRunBehatInteractively($answerString, $argumentsString)
   {
-    $env = $this->process->getEnv();
-    $env['SHELL_INTERACTIVE'] = true;
+    $this->env['SHELL_INTERACTIVE'] = true;
 
-    $this->process->setEnv($env);
-    $this->process->setInput($answerString);
+    $this->input = $answerString;
 
     $this->options = '--format-settings=\'{"timer": false}\'';
     $this->iRunBehat($argumentsString);
