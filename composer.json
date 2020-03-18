@@ -24,7 +24,7 @@
   "require": {
     "php": ">=5.5",
     "behat/behat": "^3.3",
-    "ezsystems/allure-php-api": "^3.0@dev"
+    "ezsystems/allure-php-api": "^3.1@dev"
   },
   "require-dev": {
     "symfony/process": "~2.5|~3.0|~4.0|~5.0",
