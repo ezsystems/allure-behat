@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018 Tiko Lakin
+ * Copyright (c) 2018 Tiko Lakin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,27 +20,27 @@ namespace Allure\Behat\Exception;
 
 interface ArtifactExceptionInterface
 {
+    /**
+     * ArtifactExceptionInterface constructor.
+     *
+     * @param $message
+     * @param \Behat\Mink\Driver\CoreDriver $driver
+     * @param \Exception $previous
+     */
+    public function __construct($message, \Behat\Mink\Driver\CoreDriver $driver, \Exception $previous = null);
 
-  /**
-   * ArtifactExceptionInterface constructor.
-   * @param $message
-   * @param \Behat\Mink\Driver\CoreDriver $driver
-   * @param \Exception $previous
-   */
-  public function __construct($message, \Behat\Mink\Driver\CoreDriver $driver, \Exception $previous = null);
+    /**
+     * @return string|void
+     */
+    public function getUrl();
 
-  /**
-   * @return string|void
-   */
-  public function getUrl();
+    /**
+     * @return string|void
+     */
+    public function getScreenPath();
 
-  /**
-   * @return string|void
-   */
-  public function getScreenPath();
-
-  /**
-   * @return string|void
-   */
-  public function getHtmlPath();
+    /**
+     * @return string|void
+     */
+    public function getHtmlPath();
 }

@@ -22,22 +22,29 @@
     }
   ],
   "require": {
-    "php": ">=5.5",
+    "php": "^7.1",
     "behat/behat": "^3.3",
     "ezsystems/allure-php-api": "^3.1@dev"
   },
   "require-dev": {
-    "symfony/process": "~2.5|~3.0|~4.0|~5.0",
-    "phpunit/phpunit": "^4.8.36|^6.3"
+    "ezsystems/ezplatform-code-style": "^0.1.0",
+    "friendsofphp/php-cs-fixer": "^2.16.0",
+    "phpunit/phpunit": "^7.0",
+    "symfony/process": "~2.5|~3.0|~4.0|~5.0"
   },
   "autoload": {
     "psr-0": {
       "": "src/"
     }
   },
+  "scripts": {
+    "fix-cs": "@php ./vendor/bin/php-cs-fixer fix -v --show-progress=estimating"
+  },
   "extra": {
-    "branch-alias": {
-      "dev-master": "3.1.x-dev"
-    }
+      "_ezplatform_branch_for_behat_tests": "2.5",
+      "branch-alias": {
+          "dev-master": "3.1.x-dev",
+          "dev-tmp_ci_branch": "3.1.x-dev"
+      }
   }
 }
