@@ -39,6 +39,7 @@ use Behat\Testwork\EventDispatcher\Event\SuiteTested;
 use Behat\Testwork\Output\Formatter;
 use Behat\Testwork\Output\Printer\OutputPrinter;
 use Behat\Testwork\Tester\Result\ExceptionResult;
+use Doctrine\Common\Annotations\AnnotationRegistry; 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Yandex\Allure\Adapter\Allure;
 use Yandex\Allure\Adapter\AllureException;
@@ -219,6 +220,7 @@ class AllureFormatter implements Formatter
 
     public function onAfterSuiteTested(AfterSuiteTested $event)
     {
+        AnnotationRegistry::registerLoader('class_exists');
         $this->getLifeCycle()->fire(new TestSuiteFinishedEvent($this->uuid));
     }
 
