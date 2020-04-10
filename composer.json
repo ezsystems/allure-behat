@@ -24,7 +24,7 @@
   "require": {
     "php": "^7.1",
     "behat/behat": "^3.3",
-    "ezsystems/allure-php-api": "^3.1@dev"
+    "ezsystems/allure-php-api": "^3.1"
   },
   "require-dev": {
     "ezsystems/ezplatform-code-style": "^0.1.0",
