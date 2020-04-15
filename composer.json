@@ -24,7 +24,7 @@
   "require": {
     "php": "^7.1",
     "behat/behat": "^3.3",
-    "ezsystems/allure-php-api": "~3.1.0@dev"
+    "ezsystems/allure-php-api": "^3.1@dev"
   },
   "require-dev": {
     "ezsystems/ezplatform-code-style": "^0.1.0",
@@ -41,7 +41,7 @@
     "fix-cs": "@php ./vendor/bin/php-cs-fixer fix -v --show-progress=estimating"
   },
   "extra": {
-      "_ezplatform_branch_for_behat_tests": "3.0",
+      "_ezplatform_branch_for_behat_tests": "master",
       "branch-alias": {
           "dev-master": "3.1.x-dev",
           "dev-tmp_ci_branch": "3.1.x-dev"
