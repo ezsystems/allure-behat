@@ -66,7 +66,7 @@ Feature: Allure Formatter
         <name>default</name>
         <test-cases>
           <test-case start="-IGNORE-VALUE-" stop="-IGNORE-VALUE-" status="passed">
-            <name>features/World.feature:8</name>
+            <name>World.feature:8</name>
             <title>Scenario annotation</title>
             <description type="text"><![CDATA[In order to have meta information of the scenario
       As a features developer
